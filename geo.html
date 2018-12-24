@@ -1,13 +1,22 @@
 <html>
+<head>
+    <title>Wallpaper</title>
 
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+</head>
 <body>
 <p><button onclick="geoFindMe()">Show my location</button></p>
-<div id="out">haha</div>
+<div id="out">
+    <p class="yo">haha</p>
+
+</div>
 
 <script>
+$(".yo").css("color", "blue");
+
 function geoFindMe() {
   var output = document.getElementById("out");
-//Test commit
+//Test commit lol
   if (!navigator.geolocation){
     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
     return;
