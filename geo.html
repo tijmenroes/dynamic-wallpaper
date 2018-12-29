@@ -1,43 +1,183 @@
 <html>
 <head>
-    <title>Wallpaper</title>
+    <title>Wallpaper lit</title>
 
     <script src="node_modules/jquery/dist/jquery.js"></script>
 </head>
-<body>
-<p><button onclick="geoFindMe()">Show my location</button></p>
-<div id="out">
-    <p class="yo">haha</p>
+<body onload="startTime()">
+<div class="content">
+    <div id="clock">clock</div>
+    <div id="date">date</div>
+
+    <p><button onclick="geoFindMe()">Show my locationAAAAsdsfA</button></p>
+    <div id="out">
+        <p class="yo">haha</p>
+
+    </div>
+    <div class="moving" style="height:50px;width: 50px;background-color: red;position:absolute">HAHA</div>
+    <div class="rain"></div>
 
 </div>
+<style>
+    body {
+        overflow: hidden;
 
+        background-color:rgb(37, 103, 209);
+    }
+
+    .content {
+        background-image: url("img/skyline.png");
+        width:100%;
+        height:100%;
+
+    }
+
+    .drop {
+        /*
+        background:-webkit-gradient(linear, 0% 0%, 0%, 100%, from(rgba(13,52,58,1)), to (rgba(255,255,255,0.6)));
+        background:-moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,0.6) 100%);
+        */
+        background: #FFFFFF;
+        width: 1px;
+        height: 35px;
+        position: absolute;
+        bottom: 800px;
+        transform: rotate(35deg);
+        -webkit-animation: fall 1s linear infinite;
+        -moz-animation: fall 1s linear infinite;
+        opacity: 0.3;
+    }
+
+    @-webkit-keyframes fall { to {margin-top: 900px; margin-right: 200px;}}
+    @-moz-keyframes fall { to {margin-top: 900px; margin-right: 200px;}}
+</style>
 <script>
-$(".yo").css("color", "blue");
 
-function geoFindMe() {
-  var output = document.getElementById("out");
+    //Section - Weather
+    /*
+    $.ajax({
+        dataType: "json",
+        url: "https://api.darksky.net/forecast/edce0581bd63dba98ebd828919821206/37.8267,-122.4233?exclude=minutely,hourly,daily,flags&units=si"
+        //Get the API json data, exclude unnecessary information. Units are European for testing purposes
+    }).done(function(weatherData) {
+        console.log(weatherData);
+        var temp = weatherData.currently.temperature;
+        console.log(temp);
+        $(".yo").text(temp);
+    });
+
+    */
+    // - Section - Clock
+    function startTime() {
+        var today = new Date();
+        //Get variables for displaying clock
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        //When < 0, display a zero in front
+        m = addZero(m);
+        s = addZero(s);
+        //Display the clock
+        $('#clock').text(h + ":" + m + ":" + s);
+
+        //Date
+        var date = today.getDate();
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var monthNr = today.getMonth();
+        var month = months[monthNr];
+        var monthLatest = monthNr + 1; // +1 because it sees as -1 month (January = 0)
+        var year = today.getFullYear();
+
+        var toHour = 0.00000027778; //milliseconds to hour
+        var timeNow = today.getTime() * toHour;
+        var startDay = new Date("'" + year + "-" + monthLatest  + "-" + date + "'").getTime() * toHour;
+        var timeDiff = timeNow - startDay;
+        Sun(timeDiff); //Start the Sun function
+
+        $("#date").text(date + " " + month + ", " + year);
+
+        //  var t = setTimeout(startTime, 500);
+
+    }
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }  // add zero in front of numbers < 10
+        return i;
+    }
+    function Sun(x) {
+        var rekensom = Math.sin(5-x/3.5);
+        console.log(rekensom);
+        var zonVector = $(".moving");
+        if (x < 12) {
+            zonVector.css("bottom", rekensom*700);
+            zonVector.css("left", rekensom*750);
+        } else if (x > 12) {
+            zonVector.css("bottom", rekensom*700);
+            zonVector.css("right", rekensom*750);
+        }
+//Background color goes from dark blue, to lightblue, to dark blue
+        $("body").css("background-color", "rgb(37,"+ rekensom*10.62 + ", 209)");
+    }
+
+    //Section - Rain
+    var nbDrop = 600; //aantal keer dat de loop word uitgevoerd, oftewel aantal drops.
+    function randRange(maxNum, minNum) {//functie voor een random range
+        return (Math.floor(Math.random(10) * (maxNum - minNum + 1)) + minNum); //Return een afgerond random nummer met de parameters die hieronder worden geset
+
+    }
+
+    function createRain() {
+        for (i = 0; i < nbDrop; i++) {
+
+            var dropLeft = randRange(0, 1700);
+            var dropTop = randRange(-400, 1920);
+            $('.rain').append('<div class="drop" id="drop' + i + '"></div>');
+            $('#drop' + i).css('left', dropLeft);
+            $('#drop' + i).css('top', dropTop);
+        }
+    }
+    //createRain();
+
+    function geoFindMe() {
+        var output = document.getElementById("out");
 //Test commit lol
-  if (!navigator.geolocation){
-    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-    return;
-  }
+        if (!navigator.geolocation){
+            output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+            return;
+        }
 
-  function tracked(position) {
-    var latitude  = position.coords.latitude;
-    var longitude = position.coords.longitude;
+        function tracked(position) {
+            var latitude  = position.coords.latitude;
+            var longitude = position.coords.longitude;
 
-    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+            output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+        geoCode(latitude, longitude);
+        }
 
-  }
+        function error() {
+            output.innerHTML = "Unable to retrieve your location";
+        }
 
-  function error() {
-    output.innerHTML = "Unable to retrieve your location";
-  }
+        output.innerHTML = "<p>Locating…</p>";
 
-  output.innerHTML = "<p>Locating…</p>";
+        navigator.geolocation.getCurrentPosition(tracked, error);
+    }
 
-  navigator.geolocation.getCurrentPosition(tracked, error);
-}
+    function geoCode(lat,long) {
+        $.ajax({
+            dataType: "json",
+            url: "https://api.opencagedata.com/geocode/v1/json?key=7660484dd340439191dc955d60999f3a&q="+ lat + "%2C"+ long +"&pretty=1&no_annotations=1"
+            //Get the API json data, exclude unnecessary information. Units are European for testing purposes
+        }).done(function(geoData) {
+            console.log(geoData);
+            //  var temp = weatherData.currently.temperature;
+            console.log(geoData.results[0].components.country);
+            console.log(geoData.results[0].components.city);
+            //  $(".yo").text(temp);
+        });
+
+    }
 </script>
 </body>
 </html>
