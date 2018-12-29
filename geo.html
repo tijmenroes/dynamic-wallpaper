@@ -8,10 +8,11 @@
 <div class="content">
     <div id="clock">clock</div>
     <div id="date">date</div>
+    <div id="location">location</div>
 
-    <p><button onclick="geoFindMe()">Show my locationAAAAsdsfA</button></p>
+    <p><button onclick="geoFindMe()">Show my location</button></p>
     <div id="out">
-        <p class="yo">haha</p>
+
 
     </div>
     <div class="moving" style="height:50px;width: 50px;background-color: red;position:absolute">HAHA</div>
@@ -22,7 +23,7 @@
     body {
         overflow: hidden;
 
-        background-color:rgb(37, 103, 209);
+
     }
 
     .content {
@@ -54,19 +55,20 @@
 <script>
 
     //Section - Weather
-    /*
-    $.ajax({
-        dataType: "json",
-        url: "https://api.darksky.net/forecast/edce0581bd63dba98ebd828919821206/37.8267,-122.4233?exclude=minutely,hourly,daily,flags&units=si"
-        //Get the API json data, exclude unnecessary information. Units are European for testing purposes
-    }).done(function(weatherData) {
-        console.log(weatherData);
-        var temp = weatherData.currently.temperature;
-        console.log(temp);
-        $(".yo").text(temp);
-    });
+    function weather(lat,long) {
+        $.ajax({
+            dataType: "json",
+            url: "https://api.darksky.net/forecast/edce0581bd63dba98ebd828919821206/"+ lat + ","+ long +"?exclude=minutely,hourly,daily,flags&units=si"
+            //Get the API json data, exclude unnecessary information. Units are European for testing purposes
+        }).done(function (weatherData) {
+            console.log(weatherData);
+            var temp = weatherData.currently.temperature;
+            var icon = weatherData.currently.temperature;
+            console.log(temp);
 
-    */
+        });
+    }
+
     // - Section - Clock
     function startTime() {
         var today = new Date();
@@ -118,6 +120,7 @@
         }
 //Background color goes from dark blue, to lightblue, to dark blue
         $("body").css("background-color", "rgb(37,"+ rekensom*10.62 + ", 209)");
+        console.log(rekensom*10.62);
     }
 
     //Section - Rain
@@ -151,15 +154,17 @@
             var latitude  = position.coords.latitude;
             var longitude = position.coords.longitude;
 
-            output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+        //    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
         geoCode(latitude, longitude);
+        weather(latitude,longitude);
+        $("button").remove();
         }
 
         function error() {
             output.innerHTML = "Unable to retrieve your location";
         }
 
-        output.innerHTML = "<p>Locating…</p>";
+      //  output.innerHTML = "<p>Locating…</p>";
 
         navigator.geolocation.getCurrentPosition(tracked, error);
     }
@@ -172,9 +177,10 @@
         }).done(function(geoData) {
             console.log(geoData);
             //  var temp = weatherData.currently.temperature;
-            console.log(geoData.results[0].components.country);
-            console.log(geoData.results[0].components.city);
-            //  $(".yo").text(temp);
+            var country = geoData.results[0].components.country;
+            var city = geoData.results[0].components.city;
+
+            $("#location").text(city + ", " + country);
         });
 
     }
