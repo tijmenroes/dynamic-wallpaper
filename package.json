@@ -1,0 +1,18 @@
+{
+  "name": "wallpaperoverview",
+  "version": "1.0.0",
+  "description": "wallpaperoverview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.fhict.nl/I367471/wallpaperoverview.git"
+  },
+  "author": "Tijmen Roes",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
