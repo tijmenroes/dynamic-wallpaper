@@ -1,16 +1,17 @@
 <html>
 <head>
     <title>Wallpaper lit</title>
-
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="node_modules/jquery/dist/jquery.js"></script>
 </head>
 <body onload="startTime()">
 <div class="content">
+    <div class="data">
     <div id="clock">clock</div>
     <div id="date">date</div>
     <div id="location">location</div>
-
-    <p><button onclick="geoFindMe()">Show my location</button></p>
+    <div id="icon">icon</div>
+    </div>
     <div id="out">
 
 
@@ -19,41 +20,9 @@
     <div class="rain"></div>
 
 </div>
-<style>
-    body {
-        overflow: hidden;
 
-
-    }
-
-    .content {
-        background-image: url("img/skyline.png");
-        width:100%;
-        height:100%;
-
-    }
-
-    .drop {
-        /*
-        background:-webkit-gradient(linear, 0% 0%, 0%, 100%, from(rgba(13,52,58,1)), to (rgba(255,255,255,0.6)));
-        background:-moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,0.6) 100%);
-        */
-        background: #FFFFFF;
-        width: 1px;
-        height: 35px;
-        position: absolute;
-        bottom: 800px;
-        transform: rotate(35deg);
-        -webkit-animation: fall 1s linear infinite;
-        -moz-animation: fall 1s linear infinite;
-        opacity: 0.3;
-    }
-
-    @-webkit-keyframes fall { to {margin-top: 900px; margin-right: 200px;}}
-    @-moz-keyframes fall { to {margin-top: 900px; margin-right: 200px;}}
-</style>
 <script>
-
+   // geoFindMe();
     //Section - Weather
     function weather(lat,long) {
         $.ajax({
@@ -62,9 +31,18 @@
             //Get the API json data, exclude unnecessary information. Units are European for testing purposes
         }).done(function (weatherData) {
             console.log(weatherData);
-            var temp = weatherData.currently.temperature;
-            var icon = weatherData.currently.temperature;
-            console.log(temp);
+            var temp = weatherData.currently;
+            var icon = weatherData.currently.icon;
+            console.log(icon);
+            if(icon = "cloudy") {
+                $("#icon").css("background", "black");
+                console.log("true");
+            } else if (icon = "rain") {
+                createRain();
+                $("#icon").css("background", "red");
+            } else if (icon= "clear-day") {
+                $("#icon").css("background", "yellow");
+            }
 
         });
     }
@@ -98,7 +76,7 @@
 
         $("#date").text(date + " " + month + ", " + year);
 
-        //  var t = setTimeout(startTime, 500);
+        setTimeout(startTime, 500);
 
     }
     function addZero(i) {
@@ -109,18 +87,17 @@
     }
     function Sun(x) {
         var rekensom = Math.sin(5-x/3.5);
-        console.log(rekensom);
+      //  console.log(rekensom);
         var zonVector = $(".moving");
+        zonVector.css("bottom", rekensom*700);
         if (x < 12) {
-            zonVector.css("bottom", rekensom*700);
-            zonVector.css("left", rekensom*750);
+           zonVector.css("left", rekensom*750);
         } else if (x > 12) {
-            zonVector.css("bottom", rekensom*700);
             zonVector.css("right", rekensom*750);
         }
 //Background color goes from dark blue, to lightblue, to dark blue
         $("body").css("background-color", "rgb(37,"+ rekensom*10.62 + ", 209)");
-        console.log(rekensom*10.62);
+       // console.log(rekensom*10.62);
     }
 
     //Section - Rain
