@@ -64,6 +64,7 @@ body {
 }
 #clock {
     font-family: clock;
+    font-size:12vh;
 }
 
 .content {
