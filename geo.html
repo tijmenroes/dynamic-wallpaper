@@ -3,8 +3,10 @@
     <title>Wallpaper lit</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="time.js"></script>
+    <script src="weather.js"></script>
 </head>
-<body onload="startTime()">
+<body>
 <div class="content">
     <div class="data">
     <div id="clock">clock</div>
@@ -16,137 +18,10 @@
 
 
     </div>
-    <div class="moving" style="height:50px;width: 50px;background-color: red;position:absolute">HAHA</div>
+    <div class="moving" style="height:50px;width: 50px;background-color: red;position:absolute">ZON</div>
     <div class="rain"></div>
 
 </div>
 
-<script>
-    geoFindMe(); //start geocode function
-    //Section - Weather
-    function weather(lat,long) {
-        $.ajax({
-            dataType: "json",
-            url: "https://api.darksky.net/forecast/edce0581bd63dba98ebd828919821206/"+ lat + ","+ long +"?exclude=minutely,hourly,daily,flags&units=si"
-            //Get the API json data, exclude unnecessary information. Units are European for testing purposes
-        }).done(function (weatherData) {
-           var icon = weatherData.currently.icon; //Get the icon supplied by the API
-           if(icon = "cloudy") {
-                $("#icon").css("background", "black");
-                } else if (icon = "rain") {
-                createRain();
-                $("#icon").css("background", "red");
-            } else if (icon= "clear-day") {
-                $("#icon").css("background", "yellow");
-            }
-
-        });
-    }
-
-    // - Section - Clock
-    function startTime() {
-        var today = new Date();
-        //Get variables for displaying clock
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-
-        m = addZero(m); //When < 0, display a zero in front
-        s = addZero(s);
-        //Display the clock
-        $('#clock').text(h + ":" + m + ":" + s);
-
-        //Date
-        var date = today.getDate();
-        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var monthNr = today.getMonth();
-        var month = months[monthNr];
-        var monthLatest = monthNr + 1; // +1 because it sees as -1 month (January = 0)
-        var year = today.getFullYear();
-
-        var toHour = 0.00000027778; //milliseconds to hour
-        var timeNow = today.getTime() * toHour;
-        var startDay = new Date("'" + year + "-" + monthLatest  + "-" + date + "'").getTime() * toHour;
-        var timeDiff = timeNow - startDay; //Timediff is the amount of milliseconds currently in the day
-        Sun(timeDiff); //Start the Sun function
-
-        $("#date").text(date + " " + month + ", " + year);
-
-        setTimeout(startTime, 500);
-
-    }
-    function addZero(i) {
-        if (i < 10) {
-            i = "0" + i;
-        }  // add zero in front of numbers < 10
-        return i;
-    }
-    function Sun(x) {
-        var rekensom = Math.sin(5-x/3.5);
-      //  console.log(rekensom);
-        var zonVector = $(".moving");
-        zonVector.css("bottom", rekensom*700);
-        if (x < 12) {
-           zonVector.css("left", rekensom*750);
-        } else if (x > 12) {
-            zonVector.css("right", rekensom*750);
-        }
-//Background color goes from dark blue, to lightblue, to dark blue
-        $("body").css("background-color", "rgb(37,"+ rekensom*10.62 + ", 209)");
-        }
-
-    //Section - Rain
-    var nbDrop = 600; //Amount of times it loops, so the amount of raindrops
-    function randRange(maxNum, minNum) {
-        return (Math.floor(Math.random(10) * (maxNum - minNum + 1)) + minNum); //Return a random number where the droplet is supposed to be positioned
-    }
-
-    function createRain() {
-        for (i = 0; i < nbDrop; i++) {
-
-            var dropLeft = randRange(0, 1700);
-            var dropTop = randRange(-400, 1920);
-            $('.rain').append('<div class="drop" id="drop' + i + '"></div>');
-            $('#drop' + i).css('left', dropLeft);
-            $('#drop' + i).css('top', dropTop);
-        }
-    }
-
-    function geoFindMe() {
-        var output = document.getElementById("out");
-        if (!navigator.geolocation){ //When no location could be found
-            output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-            return;
-        }
-
-        function tracked(position) { //when a location could be found,
-            var latitude  = position.coords.latitude;
-            var longitude = position.coords.longitude;
-
-        geoCode(latitude, longitude);
-        weather(latitude,longitude);
-        }
-
-        function error() {
-            output.innerHTML = "Unable to retrieve your location";
-        }
-
-        navigator.geolocation.getCurrentPosition(tracked, error);
-    }
-
-    function geoCode(lat,long) {
-        $.ajax({
-            dataType: "json",
-            url: "https://api.opencagedata.com/geocode/v1/json?key=7660484dd340439191dc955d60999f3a&q="+ lat + "%2C"+ long +"&pretty=1&no_annotations=1"
-            //Get the API json data, exclude unnecessary information. Units are European for testing purposes
-        }).done(function(geoData) {
-            var country = geoData.results[0].components.country;
-            var city = geoData.results[0].components.city;
-
-            $("#location").text(city + ", " + country); //display city and country
-        });
-
-    }
-</script>
 </body>
 </html>

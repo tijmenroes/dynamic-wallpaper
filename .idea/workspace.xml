@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e0811ca-ce25-4943-b918-368f9d37686b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geo.html" beforeDir="false" afterPath="$PROJECT_DIR$/geo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/geo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
+            <state relative-caret-position="272">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
               <folding>
                 <element signature="n#style#0;n#div#4;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -120,7 +118,7 @@
       <updated>1545692507474</updated>
       <workItem from="1545692517297" duration="2026000" />
       <workItem from="1546728935552" duration="386000" />
-      <workItem from="1546792629644" duration="4571000" />
+      <workItem from="1546792629644" duration="5554000" />
     </task>
     <task id="LOCAL-00001" summary="branches gefixt">
       <created>1546104631469</created>
@@ -136,11 +134,18 @@
       <option name="project" value="LOCAL" />
       <updated>1546800186584</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Cleaned up code a bit, different font for the clock">
+      <created>1546804807418</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1546804807418</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10259000" />
+    <option name="totallyTimeSpent" value="11242000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -153,7 +158,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1691" height="917" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25905463" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -232,7 +236,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="branches gefixt" />
     <MESSAGE value="icon poc" />
-    <option name="LAST_COMMIT_MESSAGE" value="icon poc" />
+    <MESSAGE value="Cleaned up code a bit, different font for the clock" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up code a bit, different font for the clock" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/package.json">
@@ -247,8 +252,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/geo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
           <folding>
             <element signature="n#style#0;n#div#4;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
