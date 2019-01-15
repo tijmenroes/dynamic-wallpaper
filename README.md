@@ -30,8 +30,9 @@ This application uses jquery
 npm  install
 ```
 ## Code example 
->in time.js
 ___
+>in time.js
+
 ```
 timeModule.sunMethod(12);
 ```
