@@ -1,7 +1,32 @@
   var moduleWeather = (function () {
 
+     var Cords = function geoFindMe() {
+        var output = document.getElementById("out");
+        if (!navigator.geolocation){ //When no location could be found
+            $("#location").text("Unable to retrieve your location");
+            return;
+        };
 
- var publicMethod = function weather(lat,long) {
+      function tracked(position) { //when a location could be found,
+
+            latitude  = position.coords.latitude;
+            longitude = position.coords.longitude;
+           
+        geoCoder(latitude, longitude);
+        publicMethod(latitude, longitude);
+       
+               
+        };
+
+        function error() {
+           $("#location").text("Unable to retrieve your location");
+        };
+
+        navigator.geolocation.getCurrentPosition(tracked, error);
+       
+    };
+ var weather = function (lat,long) {
+     console.log(lat,long);
         $.ajax({
             dataType: "json",
             url: "https://api.darksky.net/forecast/edce0581bd63dba98ebd828919821206/"+ lat + ","+ long +"?exclude=minutely,hourly,daily,flags&units=si"
@@ -37,30 +62,7 @@
         }
     }
 
-    var cordsMethod = function geoFindMe() {
-        var output = document.getElementById("out");
-        if (!navigator.geolocation){ //When no location could be found
-            output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-            return;
-        }
 
-       var cords = function tracked(position) { //when a location could be found,
-            latitude  = position.coords.latitude;
-            longitude = position.coords.longitude;
-           
-        geoCode(latitude, longitude);
-       
-       weather(latitude,longitude);
-               
-        };
-
-        function error() {
-            output.innerHTML = "Unable to retrieve your location";
-        }
-
-        navigator.geolocation.getCurrentPosition(tracked, error);
-       
-    }
 
     var geoCoder = function geoCode(lat,long) {
         $.ajax({
@@ -76,14 +78,14 @@
     };
     return {
         publicMethod: publicMethod,
-        cordsMethod: cordsMethod,
-        geoCoder: geoCoder
+        geoCoder: geoCoder,
+        Cords: Cords
 
     }
     geoFindMe();
   
       })();
     
-       
-        moduleWeather.geoCoder(5.4545,5.4545); //set geocoder yourself, comment this for your own geolocation
-        moduleWeather.publicMethod(0,0); //Set weatherlocation yourself, comment this for your own geolocation
+       moduleWeather.Cords(); //Run as intended
+       // moduleWeather.geoCoder(5.4545,5.4545); //set geocoder yourself, comment this for your own geolocation
+        //  moduleWeather.weather(5.4545,5.4545); //Set weatherlocation yourself, comment this for your own geolocation

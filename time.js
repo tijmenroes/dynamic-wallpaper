@@ -1,7 +1,8 @@
 var timeModule = (function () {
 
-function startTime() {
+ var startTimer = function startTime() {
         var today = new Date();
+        console.log("Wajo");
         //Get variables for displaying clock
         var h = today.getHours();
         var m = today.getMinutes();
@@ -24,8 +25,8 @@ function startTime() {
         var timeNow = today.getTime() * toHour;
         var startDay = new Date("'" + year + "-" + monthLatest  + "-" + date + "'").getTime() * toHour;
         var timeDiff = timeNow - startDay; //Timediff is the amount of milliseconds currently in the day
-       // Sun(timeDiff); //Start the Sun function
-
+        sunMethod(timeDiff); //Start the Sun function
+        
         $("#date").text(date + " " + month + ", " + year);
 
         setTimeout(startTime, 500);
@@ -37,26 +38,35 @@ function startTime() {
         }  // add zero in front of numbers < 10
         return i;
     }
-    
-    return {
-    sunMethod: function Sun(x) {
+        
+    var sunMethod = function zon(x) {
+            console.log(x);
         var rekensom = Math.sin(5-x/3.5);
+        console.log(rekensom);
         var zonVector = $(".moving");
         zonVector.css("bottom", rekensom*700);
         if (x < 12) {
            zonVector.css("left", rekensom*750);
             } else if (x > 12) {
+                
             zonVector.css("right", rekensom*750);
         }
         //Background color goes from dark blue, to lightblue, to dark blue
         $("body").css("background-color", "rgb(37,"+ rekensom*10.62 + ", 209)");
-    }
-    }  
-    startTime();
+    };
+    
+   
+   // startTime();
 
     
-    
+      return {
+        sunMethod:sunMethod,
+        startTimer: startTimer
+    } 
 
 })();
 
-timeModule.sunMethod(12);
+$(document).ready(function(){
+    //timeModule.sunMethod(16);
+    timeModule.startTimer();
+});
