@@ -34,9 +34,10 @@ This will set the timer from the sun at 12 hours, which is the highest point. Us
 to use this, if you don't use this you could only see your result from 7am-18pm since the sun will have gone down.
 >in weather.js
 ```
-moduleWeather.geoCoder(lattitude,longitude); //Example 5.555555, 5.555555
+moduleWeather.geoCoder(5.4545,5.4545); 
 ```
-Here you can set the coordinates to the geocoding API, for example if you'd like to set it to a different country
+Here you can set the coordinates to the geocoding API, for example if you'd like to set it to a different country. 
+In this example the coordinates are set to: Lattitude as 5.4545, longitude as 5.4545.
 >in weather.js
 ```
 moduleWeather.weather(5.4545,5.4545)
