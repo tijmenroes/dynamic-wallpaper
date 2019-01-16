@@ -1,5 +1,4 @@
 # Wallpaper Overview
-___
 An interactive wallpaper which shows the time and weather based on your location. The wallpaper includes a sun that moves along with the time, it comes at 7 in the morning and sets 
 at 6 in the evening. Furthermore, the wallpaper will respond to certain events a few examples:
 1. When it's raining, rain will appear in the background
@@ -7,14 +6,10 @@ at 6 in the evening. Furthermore, the wallpaper will respond to certain events a
 3. When it's christmas, a christmas theme will be applied to the background.
 
 ## Motivation
-___
 I made this project because I often found myself looking at the wallpaper of my laptop or chromecast, and not actually using the device. I decided to make a background for myself, with 
 the things I would like to see. Instead of looking at a boring wallpaper with not much happening I decided to add some things and make it interactive, that way I wouldn't get bored of it quickly
 
-
-
 ## Installation
-___
 To use this you will need your own API keys for [google geocode api](https://developers.google.com/maps/documentation/geocoding/intro) and [Dark sky API](https://darksky.net/dev) these keys
 will need to be changed in the file weather.js. For the Dark sky API
 ```
@@ -30,7 +25,6 @@ This application uses jquery
 npm  install
 ```
 ## Code example 
-___
 >in time.js
 
 ```
@@ -49,7 +43,6 @@ moduleWeather.weather(5.4545,5.4545)
 ```
 Here you can set the coordinates of the weather API, for example set it to a place where it's raining and see if the rain event works
 ## Contribute
-___
 Feel free to expand on the wallpaper as much as you'd like! A few examples you could add are:
 1. Snowflakes when it's winter, falling leaves when it's autumn etc.
 2. Different wallpapers based on location, if you are in new york you could have a NY skyline. When in Washington D.C. have a Washington skyline.
