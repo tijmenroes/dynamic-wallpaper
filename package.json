@@ -13,6 +13,6 @@
   "author": "Tijmen Roes",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.3.1"
+    "jquery": "^3.5.0"
   }
 }
